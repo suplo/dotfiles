@@ -1,0 +1,9 @@
+session_name: wovn
+windows:
+  - window_name: equalizer
+    layout: main-vertical
+    shell_command_before:
+      - cd ~/dev/equalizer
+    panes:
+      - nvim .
+      - git status
