@@ -1,7 +1,7 @@
 let mapleader = "\<Space>"
 
 " Plugins will be downloaded under the specified directory
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin('~/.local/share/nvim/plugged')
 
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
