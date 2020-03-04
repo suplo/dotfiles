@@ -39,8 +39,7 @@ source ~/anaconda3/etc/fish/conf.d/conda.fish
 
 # Using exa instead of ls
 alias ls=exa
+alias rc="bundle exec rails console"
 
 # autojump, smart directory navigation
 if test -f /home/dat/.autojump/share/autojump/autojump.fish; . /home/dat/.autojump/share/autojump/autojump.fish; end
-
-alias vim=nvim

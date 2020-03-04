@@ -541,6 +541,7 @@ key_bindings:
   # (Windows, Linux, and BSD only)
   - { key: V,        mods: Alt, action: Paste                            }
   - { key: C,        mods: Alt, action: Copy                             }
+  - { key: N,        mods: Control|Shift, action: SpawnNewInstance       }
   #- { key: V,        mods: Control|Shift,    action: Paste               }
   #- { key: C,        mods: Control|Shift,    action: Copy                }
   #- { key: Insert,   mods: Shift,         action: PasteSelection   }
