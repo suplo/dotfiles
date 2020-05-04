@@ -7,12 +7,22 @@ set JAVA_HOME /usr/lib/jvm/default-java
 
 alias g=git
 
-alias ag="ag --hidden --ignore-dir=fe/test/coverage --ignore-dir=node_modules --ignore-dir=front/__test__/unit/coverage/ --ignore-dir=app/assets/javascripts/webpack --ignore-dir=tmp"
+alias ag="ag --path-to-ignore ~/.ignore"
 
 # Remove obsoleted local branch (removed on remote)
-alias git-clean-branches="git remote prune origin; git branch -vv | grep 'origin/.*: gone]' | awk '{print \$1}' | grep -v ci | xargs git b -D"
+# alias git-clean-branches="git remote prune origin; git branch -vv | grep 'origin/.*: gone]' | awk '{print \$1}' | grep -v ci | xargs git b -D"
+# alias git-remove-branches="git branch -D (git branch | ag $argv)"
 
-alias done='export msg=(echo Fix (git st --porcelain -s | grep -v "^??" | cut -c4-)); g c -am $msg'
+function git-clean-branches
+  git remote prune origin;
+  git branch -vv | grep 'origin/.*: gone]' | awk '{print $1}' | grep -v ci | xargs git b -D $argv;
+end
+
+function git-remove-branches
+  git branch | grep $argv | xargs git branch -D
+end
+
+alias done='export msg=(echo Fix:\n(git st --porcelain -s | grep -v "^??" | cut -c4- | paste -sd\n)); g c -am "$msg"'
 
 # Fastly debug function
 function fdebug
@@ -43,3 +53,21 @@ alias rc="bundle exec rails console"
 
 # autojump, smart directory navigation
 if test -f /home/dat/.autojump/share/autojump/autojump.fish; . /home/dat/.autojump/share/autojump/autojump.fish; end
+
+if status is-interactive
+  cd "$HOME/dev/equalizer"
+end
+
+# These settings are related to equalizer
+set PRIVATE_GEM_SOURCE_URI https://private-gems-etbu6gsddybg.wovn.io
+
+# Run Rubocop auto-correct over modified files
+function rubo
+  git status --porcelain | cut -c4- | grep '\.rb\|\.rake$' | grep -v "\->" | grep -v 'db/schema.rb' | xargs bundle exec rubocop --auto-correct
+end
+
+alias rbf="bundle exec rubocop --auto-correct"
+
+# Connecting to mysql using TCP protocol since we're using mysql docker container
+alias mysql="mysql --protocol=tcp -u root"
+
