@@ -6,17 +6,17 @@ call plug#begin('~/.local/share/nvim/plugged')
 " Fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'kien/ctrlp.vim'
+" Plug 'kien/ctrlp.vim'
 
 Plug 'mileszs/ack.vim'
 
 Plug 'ciaranm/securemodelines'
-Plug 'justinmk/vim-sneak'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-rails'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
+" Plug 'justinmk/vim-sneak'                       " Jump to any location specified by two characters
+" Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-commentary'                       " Comment out code easily
+Plug 'tpope/vim-rails'                            " Various Rails shortcut, might not be that necessary
+Plug 'tpope/vim-fugitive'                         " Git wrapper, for features such as GitBlame
+Plug 'tpope/vim-surround'                         " Surround texts easily
 
 " GUI enhancements
 Plug 'itchyny/lightline.vim'
@@ -30,18 +30,20 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'janko/vim-test'
 
 " Syntactic language support
-Plug 'cespare/vim-toml'
-Plug 'stephpy/vim-yaml'
-Plug 'rust-lang/rust.vim'
-Plug 'rhysd/vim-clang-format'
-Plug 'fatih/vim-go'
-Plug 'dag/vim-fish'
-Plug 'godlygeek/tabular'
+" Plug 'cespare/vim-toml'
+" Plug 'stephpy/vim-yaml'
+" Plug 'rust-lang/rust.vim'
+" Plug 'rhysd/vim-clang-format'
+" Plug 'fatih/vim-go'
+" Plug 'godlygeek/tabular'
 Plug 'plasticboy/vim-markdown'
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'vim-ruby/vim-ruby'
 Plug 'posva/vim-vue'
+Plug 'z0mbix/vim-shfmt', { 'for': 'sh' }
+
 Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
 
 Plug 'morhetz/gruvbox'
 
@@ -150,3 +152,12 @@ nmap <Leader>p "+p
 " Space+c will copy entire buffer into clipboard
 noremap <leader>p :read !xsel --clipboard --output<cr>
 noremap <leader>c :w !xsel -ib<cr><cr>
+
+" Avoid buftype error when saving remote file
+autocmd BufRead scp://* :set bt=acwrite
+
+" Undo
+set undodir=/home/dat/.vim/undo/
+set undofile
+set undolevels=1000
+set undoreload=10000
